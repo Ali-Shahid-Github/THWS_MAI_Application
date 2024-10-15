@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Page</title>
+    {% load static %}
+
+    <link href="{% static 'DiseaseIndicator/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'DiseaseIndicator/jQuery/jquery-ui.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'DiseaseIndicator/style.css' %} ">
+
+
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container">
+           <div class="header-container d-flex align-items-center">
+                <div class="logo mr-auto">
+                    <h1 class="text-light"><a href="/"><span>Disease Indicator</span></a></h1>
+
+                </div>
+
+                <nav class="nav-menu d-none d-lg-block">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/">About</a></li>
+                        <li><a href="/">Privacy & Policy</a></li>
+                        <li><a href="/">Contact</a></li>
+                    </ul>
+                </nav><!-- .nav-menu -->
+            </div><!-- End Header Container -->
+        </div>
+    </header><!-- End Header -->
+
+
+    <section id="hero" class=" align-items-center"  style="overflow: auto;">
+        <div class="container position-relative">
+            <div class="row ">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    See the list of symtomps
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <div class="row">
+                                        <div class="col-3" style="border-right: 2px solid black;">
+                                          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                            <a class="nav-link active" id="v-pills-g1-tab" data-toggle="pill" href="#v-pills-g1" role="tab" aria-controls="v-pills-g1" aria-selected="true">Group1</a>
+                                            <a class="nav-link" id="v-pills-g2-tab" data-toggle="pill" href="#v-pills-g2" role="tab" aria-controls="v-pills-g2" aria-selected="false">Group2</a>
+                                            <a class="nav-link" id="v-pills-g3-tab" data-toggle="pill" href="#v-pills-g3" role="tab" aria-controls="v-pills-g3" aria-selected="false">Group3</a>
+                                            <a class="nav-link" id="v-pills-g4-tab" data-toggle="pill" href="#v-pills-g4" role="tab" aria-controls="v-pills-g4" aria-selected="false">Group4</a>
+                                            <a class="nav-link" id="v-pills-g5-tab" data-toggle="pill" href="#v-pills-g5" role="tab" aria-controls="v-pills-g5" aria-selected="false">Group5</a>
+                                            <a class="nav-link" id="v-pills-g6-tab" data-toggle="pill" href="#v-pills-g6" role="tab" aria-controls="v-pills-g6" aria-selected="false">Group6</a>
+                                            <a class="nav-link" id="v-pills-g7-tab" data-toggle="pill" href="#v-pills-g7" role="tab" aria-controls="v-pills-g7" aria-selected="false">Group7</a>
+                                            
+                                          </div>
+                                        </div>
+                                        <div class="col">
+                                          <div class="tab-content" id="v-pills-tabContent">
+                                            <div class="tab-pane fade show active" id="v-pills-g1" role="tabpanel" aria-labelledby="v-pills-g1-tab">
+                                                 <table class="table table-sm table-bordered ">
+
+                                                   <tbody>
+                                                      <tr class="table-info">
+
+                                                        <td>Itching</td>
+                                                        <td>Skin Rash</td>
+                                                        <td>Nodal Skin Eruptions</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Continuous Sneezing</td>
+                                                        <td>Shivering</td>
+                                                        <td>Chills</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Joint Pain</td>
+                                                        <td>Stomach Pain</td>
+                                                        <td>Acidity</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Ulcers On Tongue</td>
+                                                        <td>Muscle Wasting</td>
+                                                        <td>Symtomp</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Vomiting</td>
+                                                        <td>Burning Micturition</td>
+                                                        <td>Spotting Urination</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Fatigue</td>
+                                                        <td>Weight Gain</td>
+                                                        <td>Anxiety</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Cold Hands And Feets</td>
+                                                        <td>Mood Swings</td>
+                                                        <td></td>
+                                                      </tr>
+
+
+
+
+                                                    </tbody>
+                                                  </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="v-pills-g2" role="tabpanel" aria-labelledby="v-pills-g2-tab">
+                                                <table class="table table-sm table-bordered ">
+
+                                                    <tbody>
+                                                      <tr class="table-info">
+
+                                                        <td>Weight Loss</td>
+                                                        <td>Restlessness</td>
+                                                        <td>Lethargy</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Patches In Throat</td>
+                                                        <td>Irregular Sugar Level</td>
+                                                        <td>Cough</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>High Fever</td>
+                                                        <td>Sunken Eyes</td>
+                                                        <td>Breathlessness</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Sweating</td>
+                                                        <td>Dehydration</td>
+                                                        <td>Indigestion</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Headache</td>
+                                                        <td>Yellowish Skin</td>
+                                                        <td>Dark Urine</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Nausea</td>
+                                                        <td>Loss Of Appetite</td>
+                                                        <td>Pain Behind The Eyes</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Back Pain</td>
+                                                        <td>Constipation</td>
+                                                        <td></td>
+                                                      </tr>
+
+
+
+
+                                                    </tbody>
+                                                  </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="v-pills-g3" role="tabpanel" aria-labelledby="v-pills-g3-tab">
+                                                <table class="table table-sm table-bordered ">
+
+                                                    <tbody>
+                                                      <tr class="table-info">
+
+                                                        <td>Abdominal Pain</td>
+                                                        <td>Diarrhoea</td>
+                                                        <td>Mild Fever</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Yellow Urine</td>
+                                                        <td>Yellowing Of Eyes</td>
+                                                        <td>Acute Liver Failure</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Fluid Overlod</td>
+                                                        <td>Swelling Of Stomach</td>
+                                                        <td>Swelled Lymph Nodes</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Malaise</td>
+                                                        <td>Blurred And Distorted Vision</td>
+                                                        <td>Phlegm</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Throat Irritation</td>
+                                                        <td>Redness Of Eyes</td>
+                                                        <td>Sinus Pressure</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Running Nose</td>
+                                                        <td>Congestion</td>
+                                                        <td>Chest Pain</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Weakness In Limbs</td>
+                                                        <td>Fast Heart Rate</td>
+                                                        <td></td>
+                                                      </tr>
+
+
+
+
+                                                    </tbody>
+                                                  </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="v-pills-g4" role="tabpanel" aria-labelledby="v-pills-g4-tab">
+                                                <table class="table table-sm table-bordered ">
+
+                                                    <tbody>
+                                                      <tr class="table-info">
+
+                                                        <td>Pain During Bowel Movements</td>
+                                                        <td>Pain In Anal Region</td>
+                                                        <td>Bloody Stool</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Irritation In Anus</td>
+                                                        <td>Neck Pain</td>
+                                                        <td>Dizziness</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Cramps</td>
+                                                        <td>Bruising</td>
+                                                        <td>Obesity</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Swollen Legs</td>
+                                                        <td>Swollen Blood Vessels</td>
+                                                        <td>Puffy Face And Eyes</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Enlarged Thyroid</td>
+                                                        <td>Brittle Nails</td>
+                                                        <td>Swollen Extremeties</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Excessive Hunger</td>
+                                                        <td>Extra Marital Contacts</td>
+                                                        <td>Drying And Tingling Lips</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Slurred Speech</td>
+                                                        <td>Knee Pain</td>
+                                                        <td></td>
+                                                      </tr>
+
+
+
+
+                                                    </tbody>
+                                                  </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="v-pills-g5" role="tabpanel" aria-labelledby="v-pills-g5-tab">
+                                                <table class="table table-sm table-bordered ">
+
+                                                    <tbody>
+                                                      <tr class="table-info">
+
+                                                        <td>Hip Joint Pain</td>
+                                                        <td>Muscle Weakness</td>
+                                                        <td>Stiff Neck</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Swelling Joints</td>
+                                                        <td>Movement Stiffness</td>
+                                                        <td>Spinning Movements</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Loss Of Balance</td>
+                                                        <td>Unsteadiness</td>
+                                                        <td>Weakness Of One Body Side</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Loss Of Smell</td>
+                                                        <td>Bladder Discomfort</td>
+                                                        <td>Foul Smell Of Urine</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Continuous Feel Of Urine</td>
+                                                        <td>Passage Of Gases</td>
+                                                        <td>Internal Itching</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Toxic Look (Typhos)</td>
+                                                        <td>Depression</td>
+                                                        <td>Irritability</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Muscle Pain</td>
+                                                        <td>Altered Sensorium</td>
+                                                        <td></td>
+                                                      </tr>
+
+
+
+
+                                                    </tbody>
+                                                  </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="v-pills-g6" role="tabpanel" aria-labelledby="v-pills-g6-tab">
+                                                <table class="table table-sm table-bordered ">
+
+                                                    <tbody>
+                                                      <tr class="table-info">
+
+                                                        <td>Red Spots Over Body</td>
+                                                        <td>Belly Pain</td>
+                                                        <td>Abnormal Menstruation</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Dischromic Patches</td>
+                                                        <td>Watering From Eyes</td>
+                                                        <td>Increased Appetite</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Polyuria</td>
+                                                        <td>Family History</td>
+                                                        <td>Muscoid Sputum</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Rusty Sputum</td>
+                                                        <td>Lack Of Concentration</td>
+                                                        <td>Visual Disturbances</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Receiving Blood Transfusion</td>
+                                                        <td>Receiving Unsterile Injections</td>
+                                                        <td>Coma</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Stomach Bleeding</td>
+                                                        <td>Distention Of Abdomen</td>
+                                                        <td>History Of Alcohol Consumption</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Blood In Sputum</td>
+                                                        <td>Prominent Veins On Calf</td>
+                                                        <td></td>
+                                                      </tr>
+
+
+
+
+                                                    </tbody>
+                                                  </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="v-pills-g7" role="tabpanel" aria-labelledby="v-pills-g7-tab">
+                                                <table class="table table-sm table-bordered ">
+
+                                                    <tbody>
+                                                      <tr class="table-info">
+
+                                                        <td>Palpitations</td>
+                                                        <td>Painful Walking</td>
+                                                        <td>Pus Filled Pimples</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Blackheads</td>
+                                                        <td>Scurring</td>
+                                                        <td>Skin Peeling</td>
+                                                      </tr>
+                                                      <tr class="table-info">
+
+                                                        <td>Silver Like Dusting</td>
+                                                        <td>Small Dents In Nails</td>
+                                                        <td>Inflammatory Nails</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td>Blister</td>
+                                                        <td>Red Sore Around Nose</td>
+                                                        <td>Yellow Crust Oze</td>
+                                                      </tr>
+                                                      
+
+                                                    </tbody>
+                                                  </table>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container text-center position-relative">
+            <form action="/SymptomDetails" method="POST" onsubmit="return check()"> {% csrf_token %}
+                <div class="row justify-content-center">
+                    <div class="col-md-8 ">
+                        <label class="sr-only" for="symptom">Name</label>
+                        <div class="input-group mb-2 input-group-lg">
+                            <div class="input-group-prepend ">
+                                <div class="input-group-text">Enter your Major Symtomp</div>
+                            </div>
+                            <input type="text" class="form-control" name="input" id="symptom" placeholder="Chills, Skin Rash">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-2" style="font-size: 22px;">Get More Details</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+
+
+
+<!-- JS scripts-->
+<script src="{% static 'DiseaseIndicator/bootstrap/js/jquery-3.5.1.slim.min.js' %}"> </script>
+<script src="{% static 'DiseaseIndicator/bootstrap/js/bootstrap.bundle.min.js' %}"> </script>
+
+<script src="{% static 'DiseaseIndicator/jQuery/jquery-1.12.4.js' %}"></script>
+<script src="{% static 'DiseaseIndicator/jQuery/jquery-ui.js' %}"></script>
+
+<script>
+ 
+      function check(){
+        symp= document.getElementById("symptom").value;
+        list= ['Itching','Skin Rash','Nodal Skin Eruptions','Continuous Sneezing','Shivering','Chills',
+         'Joint Pain','Stomach Pain','Acidity','Ulcers On Tongue','Muscle Wasting','Vomiting','Burning Micturition','Spotting Urination',
+         'Fatigue','Weight Gain','Anxiety','Cold Hands And Feets','Mood Swings','Weight Loss','Restlessness','Lethargy','Patches In Throat',
+         'Irregular Sugar Level','Cough','High Fever','Sunken Eyes','Breathlessness','Sweating','Dehydration','Indigestion','Headache',
+         'Yellowish Skin','Dark Urine','Nausea','Loss Of Appetite','Pain Behind The Eyes','Back Pain','Constipation','Abdominal Pain',
+         'Diarrhoea','Mild Fever','Yellow Urine','Yellowing Of Eyes','Acute Liver Failure','Fluid Overload','Swelling Of Stomach',
+         'Swelled Lymph Nodes','Malaise','Blurred And Distorted Vision','Phlegm','Throat Irritation','Redness Of Eyes','Sinus Pressure',
+         'Runny Nose','Congestion','Chest Pain','Weakness In Limbs','Fast Heart Rate','Pain During Bowel Movements','Pain In Anal Region',
+         'Bloody Stool','Irritation In Anus','Neck Pain','Dizziness','Cramps','Bruising','Obesity','Swollen Legs','Swollen Blood Vessels',
+         'Puffy Face And Eyes','Enlarged Thyroid','Brittle Nails','Swollen Extremeties','Excessive Hunger','Extra Marital Contacts',
+         'Drying And Tingling Lips','Slurred Speech','Knee Pain','Hip Joint Pain','Muscle Weakness','Stiff Neck','Swelling Joints',
+         'Movement Stiffness','Spinning Movements','Loss Of Balance','Unsteadiness','Weakness Of One Body Side','Loss Of Smell',
+         'Bladder Discomfort','Foul Smell Of Urine','Continuous Feel Of Urine','Passage Of Gases','Internal Itching','Toxic Look (Typhos)','Depression','Irritability','Muscle Pain','Altered Sensorium','Red Spots Over Body','Belly Pain','Abnormal Menstruation','Dischromic Patches','Watering From Eyes','Increased Appetite','Polyuria','Family History','Mucoid Sputum','Rusty Sputum','Lack Of Concentration','Visual Disturbances','Receiving Blood Transfusion','Receiving Unsterile Injections','Coma','Stomach Bleeding','Distention Of Abdomen','History Of Alcohol Consumption','Blood In Sputum','Prominent Veins On Calf','Palpitations','Painful Walking','Pus Filled Pimples','Blackheads','Scurring','Skin Peeling','Silver Like Dusting',
+         'Small Dents In Nails','Inflammatory Nails','Blister','Red Sore Around Nose','Yellow Crust Ooze']
+    
+      
+        for(i=0; i<list.length; i++)
+        {
+          if(symp==list[i])       
+              return true;         
+        }
+		alert("Enter Valid Symptom");
+        return false;
+      
+      }
+
+</script>
+
+<script>
+$( function() {    
+
+ var list= ['Itching','Skin Rash','Nodal Skin Eruptions','Continuous Sneezing','Shivering','Chills',
+ 'Joint Pain','Stomach Pain','Acidity','Ulcers On Tongue','Muscle Wasting','Vomiting','Burning Micturition','Spotting Urination',
+ 'Fatigue','Weight Gain','Anxiety','Cold Hands And Feets','Mood Swings','Weight Loss','Restlessness','Lethargy','Patches In Throat',
+ 'Irregular Sugar Level','Cough','High Fever','Sunken Eyes','Breathlessness','Sweating','Dehydration','Indigestion','Headache',
+ 'Yellowish Skin','Dark Urine','Nausea','Loss Of Appetite','Pain Behind The Eyes','Back Pain','Constipation','Abdominal Pain',
+ 'Diarrhoea','Mild Fever','Yellow Urine','Yellowing Of Eyes','Acute Liver Failure','Fluid Overload','Swelling Of Stomach',
+ 'Swelled Lymph Nodes','Malaise','Blurred And Distorted Vision','Phlegm','Throat Irritation','Redness Of Eyes','Sinus Pressure',
+ 'Runny Nose','Congestion','Chest Pain','Weakness In Limbs','Fast Heart Rate','Pain During Bowel Movements','Pain In Anal Region',
+ 'Bloody Stool','Irritation In Anus','Neck Pain','Dizziness','Cramps','Bruising','Obesity','Swollen Legs','Swollen Blood Vessels',
+ 'Puffy Face And Eyes','Enlarged Thyroid','Brittle Nails','Swollen Extremeties','Excessive Hunger','Extra Marital Contacts',
+ 'Drying And Tingling Lips','Slurred Speech','Knee Pain','Hip Joint Pain','Muscle Weakness','Stiff Neck','Swelling Joints',
+ 'Movement Stiffness','Spinning Movements','Loss Of Balance','Unsteadiness','Weakness Of One Body Side','Loss Of Smell',
+ 'Bladder Discomfort','Foul Smell Of Urine','Continuous Feel Of Urine','Passage Of Gases','Internal Itching','Toxic Look (Typhos)','Depression','Irritability','Muscle Pain','Altered Sensorium','Red Spots Over Body','Belly Pain','Abnormal Menstruation','Dischromic Patches','Watering From Eyes','Increased Appetite','Polyuria','Family History','Mucoid Sputum','Rusty Sputum','Lack Of Concentration','Visual Disturbances','Receiving Blood Transfusion','Receiving Unsterile Injections','Coma','Stomach Bleeding','Distention Of Abdomen','History Of Alcohol Consumption','Blood In Sputum','Prominent Veins On Calf','Palpitations','Painful Walking','Pus Filled Pimples','Blackheads','Scurring','Skin Peeling','Silver Like Dusting',
+ 'Small Dents In Nails','Inflammatory Nails','Blister','Red Sore Around Nose','Yellow Crust Ooze']
+
+  $( "#symptom" ).autocomplete({ source: list },{autoFoucus:true});
+
+  
+} );
+</script>
+
+
+
+</body>
+
+</html>
