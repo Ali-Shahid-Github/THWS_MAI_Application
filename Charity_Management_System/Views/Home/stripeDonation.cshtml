@@ -1,0 +1,108 @@
+﻿
+
+<body>
+
+    <main id="main" data-aos="fade-up">
+
+        <!-- ======= Breadcrumbs ======= -->
+        <section class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Receipt</h2>
+
+                </div>
+
+            </div>
+        </section><!-- End Breadcrumbs -->
+
+        <section>
+            <section class="container">
+                <div id="receiptPrint" class="row align-items-center justify-content-center mb-3">
+                    <div class="card">
+                        <div class="card-header" style="background-color: rgb(241 246 254);">
+                            <h4> E-Receipt </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="justify-content-between d-inline">
+                                <div class="d-inline-block mr-5"> <h4>Name: @ViewData["name"]</h4>  </div>
+                                <div class="d-inline-block" style="margin-left: 50%;"> <h4>Receipt ID: @ViewData["receiptID"]</h4></div>
+
+
+                            </div>
+
+                            <p class="card-text ml-3"><b>@ViewData["name"] </b> has donated PKR <b>@ViewData["amount"] </b> for category <b>@ViewData["category"] </b></p>
+                            <!--<a href="#" class="btn btn-primary">Go somewhere</a> -->
+                            <footer class="blockquote-footer ml-3">Date and Time <cite>@ViewData["date"]</cite></footer>
+                        </div>
+                        <div class="card-footer text-muted" style="background-color: rgb(241 246 254);">
+                            <p>This is Computer Generated Receipt. No Signatures required. Can be verified at our office or phone call. Error and Omisions may occur </p>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row align-items-center justify-content-center mb-3">
+                    <div class="col-lg-3 col-md-6">
+                        <input class="btn btn-outline-success form-control" type="button" onclick="printDiv('receiptPrint')" value="Save Receipt" />
+                    </div>
+                </div>
+
+            </section>
+
+        </section>
+
+    </main><!-- End #main -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+    <script>
+        function printDiv(content) {
+            var printContents = document.getElementById(content).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+
+
+        }
+    </script>
+
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+</body>
+
+
+
+
+
+<!--
+<div text-center>
+
+    <div class="row justify-content-center">
+        <script src="https://checkout.stripe.com/v3/checkout.js" class="stripe-button btn btn-suceess"
+                data-key="pk_test_51HpZsnGMHY7EGWQnCwfSZkK9YGuh1lk8KqIdUzesfHbCC6q65qn7xiDboVSHxvKSJdycoEedmMbyXs5KzuQPEm9i00q45jxh4M"
+                data-description="Donation"
+                data-amount=@ViewData["amount"]>
+        </script>
+    </div>
+    <br />
+
+</div>
+-->

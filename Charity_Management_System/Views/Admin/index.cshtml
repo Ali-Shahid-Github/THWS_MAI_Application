@@ -1,0 +1,309 @@
+﻿@using Microsoft.Data.SqlClient;
+@using System.Data;
+
+
+@{
+    ViewData["Title"] = "Admin Home";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<body>
+    <br />
+    <main id="main" data-aos="fade-up">
+
+        <!-- ======= Breadcrumbs ======= -->
+        <section class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Admin Dashboard</h2>
+
+                </div>
+
+            </div>
+        </section><!-- End Breadcrumbs -->
+
+        <section class="inner-page">
+            <section class="container">
+                <div class="container">
+
+                    <div class="row justify-content-center mt-5" data-aos="fade-up" data-aos-delay="100">
+                        <div class="col-lg-4 col-md-6 mb-sm-3  text-center">
+                            <div class="card " style="width: 18rem;">
+                                <div class="card-body">
+                                    <i class="icofont-file-psd" style="font-size: 70px;"></i>
+                                    <h5 class="card-title">Add Case</h5>
+
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Add
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Add Case</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <section class="inner-page">
+                                                        <section id="contact" class="contact container">
+                                                            <div class="container">
+
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <form action="~/Admin/add_case" method="POST" role="form" class="">
+                                                                            <div class="form-group">
+                                                                                <input type="text" class="form-control" name="title" id="subject1" placeholder="Case Title" required />
+
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <input type="number" class="form-control" name="amount" placeholder="Funds Require" required min="0" max="100000" />
+
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <select id="inputState" class="form-control" name="category">
+
+                                                                                    <option selected>Education</option>
+                                                                                    <option>Marriage</option>
+                                                                                    <option>Orphan</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group">
+
+                                                                                <textarea rows="4" name="description" class="form-control" placeholder="Case Description"></textarea>
+
+                                                                            </div>
+
+                                                                            <div class="text-center">
+                                                                                <button type="submit" class="btn btn-primary">Add Case</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </section>
+
+                                                    </section>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-sm-3  text-center">
+                            <div class="card " style="width: 18rem;">
+                                <div class="card-body">
+                                    <i class="icofont-file-psd" style="font-size: 70px;"></i>
+                                    <h5 class="card-title">Update Case</h5>
+                                    <div>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#UpdateModalCenter">
+                                            Update
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="UpdateModalCenter" tabindex="-1" role="dialog"
+                                             aria-labelledby="UpdateModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="UpdateModalLongTitle">Update case</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        @{
+                                                            ViewData["Title"] = "Admin Home View Cases";
+                                                            Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+
+                                                            SqlConnection con = new SqlConnection(SQLConnection.connectionString);
+                                                            con.Open();
+
+                                                            SqlCommand command = new SqlCommand("SELECT C_Id, C_Title,CONVERT(VARCHAR(11), C_CreationDate,106), C_Amount_Require, C_Amount_collected, C_Desceiption, C_Type, V_IsCompleted FROM Cases", con);
+
+                                                            SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+                                                            DataSet dataSet = new DataSet();
+                                                            dataAdapter.Fill(dataSet);
+                                                            con.Close();
+                                                            DataTable table = dataSet.Tables[0];
+
+                                                        }
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="container">
+                                                            <div class="table-responsive-md">
+                                                                <table class="table table-hover">
+                                                                    <thead>
+                                                                        <tr>
+
+                                                                            <th scope="col">Case Title</th>
+                                                                            <th scope="col">Funds Require</th>
+                                                                            <th scope="col">Funds Collected</th>
+                                                                            <th scope="col">Case Type</th>
+                                                                            <th scope="col">Case Description</th>
+                                                                            <th scope="col">Is Completed</th>
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+
+                                                                        @for (var i = 0; i < table.Rows.Count; i++)
+                                                                        {
+
+                                                                            <tr>
+
+                                                                                <td>@table.Rows[i].ItemArray[1]</td>
+                                                                                <td>@table.Rows[i].ItemArray[3]</td>
+                                                                                <td>@table.Rows[i].ItemArray[4]</td>
+                                                                                <td>@table.Rows[i].ItemArray[6]</td>
+                                                                                <td>@table.Rows[i].ItemArray[5]</td>
+                                                                                <td>@table.Rows[i].ItemArray[7]</td>
+                                                                                <td>
+
+                                                                                    <form action="~/Admin/updateCase" method="POST" role="form" class="">
+                                                                                        <input type="hidden" value="@table.Rows[i].ItemArray[0]" name="id" />
+                                                                                        <button type="submit" class="btn btn-primary">
+                                                                                            Update
+                                                                                        </button>
+                                                                                    </form>
+
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-sm-3  text-center">
+                            <div class="card " style="width: 18rem;">
+                                <div class="card-body">
+                                    <i class="icofont-file-psd" style="font-size: 70px;"></i>
+                                    <h5 class="card-title">View all Cases</h5>
+                                    <a href="~/Admin/viewCases" class="btn btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-center mt-5" data-aos="fade-up" data-aos-delay="100">
+                        <div class="col-lg-4 col-md-6 mb-sm-3  text-center">
+                            <div class="card " style="width: 18rem;">
+                                <div class="card-body">
+                                    <i class="icofont-ui-user" style="font-size: 70px;"></i>
+                                    <h5 class="card-title">Approve Volunteer</h5>
+                                    <a href="~/Admin/approve_valunteer" class="btn btn-primary">Approve</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-sm-3  text-center">
+                            <div class="card " style="width: 18rem;">
+                                <div class="card-body">
+                                    <i class="icofont-ui-user" style="font-size: 70px;"></i>
+                                    <h5 class="card-title">View Volunteer</h5>
+                                    <a href="~/Admin/viewValunteer" class="btn btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-sm-3  text-center">
+                            <div class="card " style="width: 18rem;">
+                                <div class="card-body">
+                                    <i class="icofont-file-psd" style="font-size: 70px;"></i>
+                                    <h5 class="card-title">Donation Record</h5>
+                                    <a href="~/Admin/viewDonation" class="btn btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-center mt-5" data-aos="fade-up" data-aos-delay="100">
+
+                        <div class="col-lg-4 col-md-6 mb-sm-3  text-center">
+                            <div class="card " style="width: 18rem;">
+                                <div class="card-body">
+                                    <i class="icofont-ui-user" style="font-size: 70px;"></i>
+                                    <h5 class="card-title">View Donation Request</h5>
+                                    <a href="~/Admin/donationRequest" class="btn btn-primary">Check</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 mb-sm-3  text-center">
+                            <div class="card " style="width: 18rem;">
+                                <div class="card-body">
+                                    <i class="icofont-money" style="font-size: 70px;"></i>
+                                    <h5 class="card-title">Assign Money to Donee</h5>
+                                    <a href="~/Admin/donationSave" class="btn btn-primary">Assign</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 mb-sm-3  text-center">
+                            <div class="card " style="width: 18rem;">
+                                <div class="card-body">
+                                    <i class="icofont-file-psd" style="font-size: 70px;"></i>
+                                    <h5 class="card-title">View Donee Records</h5>
+                                    <a href="~/Admin/viewDonee" class="btn btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row justify-content-center mt-5" data-aos="fade-up" data-aos-delay="100">
+
+                        <div class="col-lg-4 col-md-6 mb-sm-3  text-center">
+                            <div class="card " style="width: 18rem;">
+                                <div class="card-body">
+                                    <i class="icofont-ui-user" style="font-size: 70px;"></i>
+                                    <h5 class="card-title">Details</h5>
+                                    <a href="~/Admin/viewDetails" class="btn btn-primary">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+
+        </section>
+
+    </main><!-- End #main -->
+
+
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+</body>

@@ -1,0 +1,129 @@
+﻿@using Microsoft.Data.SqlClient;
+@using System.Data;
+
+@{
+    ViewData["Title"] = "Admin Home View Cases";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    
+
+    SqlConnection con = new SqlConnection(SQLConnection.connectionString);
+    con.Open();
+
+    SqlCommand command = new SqlCommand("SELECT C_Id, C_Title,CONVERT(VARCHAR(11), C_CreationDate,106), C_Amount_Require, C_Amount_collected, C_Desceiption, C_Type, V_IsCompleted FROM Cases Where C_Id=@id", con);
+
+    command.Parameters.AddWithValue("@id", ViewData["id"]);
+
+    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+    DataSet dataSet = new DataSet();
+    dataAdapter.Fill(dataSet);
+    con.Close();
+    DataTable table = dataSet.Tables[0];
+
+}
+
+<body>
+    <main id="main" data-aos="fade-up">
+
+        <!-- ======= Breadcrumbs ======= -->
+        <section class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Update Case</h2>
+
+                </div>
+
+            </div>
+        </section><!-- End Breadcrumbs -->
+
+        <section class="inner-page">
+            <section class="container">
+                
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <form action="~/Admin/upd_case" method="POST" role="form">
+                            <div class="form-group">
+
+                                <input type="text" class="form-control" name="title" placeholder="Case Title" required value="@table.Rows[0].ItemArray[1]" />
+                            </div>
+
+                            <div class="form-row" style="margin-right: 0px; margin-left: 0px;">
+                                <div class="form-group form-control col-4">
+                                    Funds Require:
+                                </div>
+                                <div class=" form-group col-8">
+                                    <input type="number" class="form-control" placeholder="Funds Require" name="amountRequire" min="0" required value="@table.Rows[0].ItemArray[3]" />
+                                </div>
+                            </div>
+
+                            <div class="form-row" style="margin-right: 0px; margin-left: 0px;">
+                                <div class="form-group form-control col-4">
+                                    Funds Collected:
+                                </div>
+                                <div class=" form-group col-8">
+                                    <input type="number" class="form-control" name="amountCollected" placeholder="Funds Collected" min="0" max="@table.Rows[0].ItemArray[3]" required value="@table.Rows[0].ItemArray[4]" />
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+
+                                <select id="inputState" class="form-control" name="category">
+                                    <option selected>@table.Rows[0].ItemArray[6] </option>
+                                    <option>Education</option>
+                                    <option>Marriage</option>
+                                    <option>Orphan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="description" placeholder="@table.Rows[0].ItemArray[5]" required value="@table.Rows[0].ItemArray[5]"></textarea>
+                            </div>
+
+                            <div class="form-row" style="margin-right: 0px; margin-left: 0px;">
+                                <div class="form-group form-control col-3">
+                                    Is Completed:
+                                </div>
+                                <div class=" form-group col-9">
+                                    <select id="inputState" class="form-control" name="isComplete">
+                                        @if (table.Rows[0]["V_IsCompleted"].ToString() == "1")
+                                        {
+                                            <option selected>Yes</option>
+                                            <option>No</option>
+
+                                        }
+                                        else
+                                        {
+                                            <option selected>No</option>
+                                            <option>Yes</option>
+                                        }
+
+
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+
+                            <input type="hidden" value="@table.Rows[0].ItemArray[0]" name="id" />
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    Update
+                                    Case
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+
+
+            </section>
+
+        </section>
+
+
+
+    </main><!-- End #main -->
+
+
+</body>

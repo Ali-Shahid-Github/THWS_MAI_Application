@@ -1,0 +1,283 @@
+﻿@{
+    ViewData["Title"] = "Home :)";
+    
+}
+
+<body>
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center">
+        <div class="container" data-aos="zoom-out" data-aos-delay="100">
+            <h1>Donate For <br>After Life</h1>
+            <br>
+            <div class="d-flex">
+                <a href="/Home/donation" class="btn-get-started scrollto">Donate</a>
+            </div>
+        </div>
+    </section><!-- End Hero -->
+
+    <main id="main">
+
+
+        <!-- ======= About Section ======= -->
+        <section id="about" class="about section-bg">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h3> <span>About Us</span></h3>
+                    <p>Some text Some text Some text Some text Some text Some text Some text Some text Some text Some text Some text  </p>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="100">
+                        <img src="~/assets/img/about.jpg" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
+                        <h3> Some text Some text Some text Some text Some text Some text Some text</h3>
+                        <p class="font-italic">
+                            Some text Some text Some text Some text Some text Some text Some text Some text Some text Some text Some text Some text Some text Some
+                            text Some text Some text Some text Some text Some text Some text Some text Some text
+                        </p>
+                        <ul>
+                            <li>
+                                <i class="bx bx-world"></i>
+                                <div>
+                                    <h5> Some text Some text Some text Some text Some</h5>
+                                    <p> Some text Some text Some text Some text Some text Some text Some text</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="bx bx-world"></i>
+                                <div>
+                                    <h5> Some text Some text Some text Some text Some text</h5>
+                                    <p> Some text Some text Some text Some text Some text Some text Some text</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- End About Section -->
+        <!-- ======= Counts Section ======= -->
+        <section id="counts" class="counts">
+            <div class="container" data-aos="fade-up">
+
+
+                @using Microsoft.Data.SqlClient;
+                @using System.Data;
+
+                @{
+
+                    string getResult(string query)
+                    {
+                        SqlConnection con = new SqlConnection(SQLConnection.connectionString);
+                        con.Open();
+
+                        SqlCommand command = new SqlCommand(query, con);
+
+                        SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+                        DataSet dataSet = new DataSet();
+                        dataAdapter.Fill(dataSet);
+                        con.Close();
+                        return  dataSet.Tables[0].Rows[0].ItemArray[0].ToString();
+                    }
+
+                    string totalCases = getResult("SELECT COUNT(C_Id) FROM Cases");
+                    string collected = getResult("SELECT SUM(C_Amount_collected) FROM Cases");
+                    string require = getResult("SELECT SUM(C_Amount_Require) FROM Cases");
+                    string completed = getResult("SELECT COUNT(C_Id) FROM Cases WHERE V_IsCompleted=1");
+
+
+                }
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="count-box">
+                            <i class="icofont-simple-smile"></i>
+                            <span data-toggle="counter-up">@totalCases</span>
+                            <p>Total Cases</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                        <div class="count-box">
+                            <i class="icofont-document-folder"></i>
+                            <span data-toggle="counter-up">@collected</span>
+                            <p>Funds Raised</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                        <div class="count-box">
+                            <i class="icofont-live-support"></i>
+                            <span data-toggle="counter-up">@require</span>
+                            <p>Donations Require</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                        <div class="count-box">
+                            <i class="icofont-users-alt-5"></i>
+                            <span data-toggle="counter-up">@completed</span>
+                            <p>Solved Cases</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End Counts Section -->
+        <!-- ======= Services Section ======= -->
+        <section id="services" class="services">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Services</h2>
+                    <h3>Look at our <span>Services</span></h3>
+                    <p>Some text Some text Some text Some text Some text Some text Some text Some text Some text Some text Some text </p>
+                </div>
+                <section id="featured-services" class="featured-services">
+                    <div class="row">
+
+                        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+                            <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
+                                <div class="icon"><i class="bx bx-world"></i></div>
+                                <h4 class="title"><a href="">Educatation</a></h4>
+                                <p class="description">
+                                    Some text Some text Some text Some text Some text Some text Some text
+                                    Some text Some text Some text Some text Some text Some text
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+                            <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
+                                <div class="icon"><i class="bx bx-world"></i></div>
+                                <h4 class="title"><a href="">Marriage</a></h4>
+                                <p class="description">
+                                    Some text Some text Some text Some text Some text Some text Some text
+                                    Some text Some text Some text Some text Some text Some text
+                                </p>
+                            </div>
+                        </div>
+
+                       <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+                            <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
+                                <div class="icon"><i class="bx bx-world"></i></div>
+                                <h4 class="title"><a href="">Orphan</a></h4>
+                                <p class="description">
+                                    Some text Some text Some text Some text Some text Some text Some text
+                                    Some text Some text Some text Some text Some text Some text
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </section>
+        <!-- End Services Section -->
+        <!-- ======= Testimonials Section ======= -->
+        <section id="testimonials" class="testimonials">
+            <div class="container" data-aos="zoom-in">
+
+                <div class="owl-carousel testimonials-carousel">
+
+                    <div class="testimonial-item">
+                        <img src="~/assets/img/testimonials/download.png" class="testimonial-img" alt="">
+                        <h3>Some Text</h3>
+                        <h4>Some &amp; Text</h4>
+                        <p>
+                            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                            Some text Some text Some text Some text Some text Some text Some text Some text Some text Some
+                            text Some textSome text Some text Some text Some text Some text Some text Some text Some text Some text Some text Some text
+                            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End Testimonials Section -->
+        <!-- ======= Contact Section ======= -->
+        <section id="contact" class="contact">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Contact</h2>
+                    <h3><span>Contact Us</span></h3>
+                    <p>Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text </p>
+                </div>
+
+                <div class="row" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-lg-6">
+                        <div class="info-box mb-4">
+                            <i class="bx bx-map"></i>
+                            <h3>Our Address</h3>
+                            <p>Some Text Some Text Some Text Some Text </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="info-box  mb-4">
+                            <i class="bx bx-envelope"></i>
+                            <h3>Email Us</h3>
+                            <p>help@example.com</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="info-box  mb-4">
+                            <i class="bx bx-phone-call"></i>
+                            <h3>Call</h3>
+                            <p>+92 000 00000</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" data-aos="fade-up" data-aos-delay="100">
+
+                    <div class="col-lg-6 ">
+                        <iframe class="mb-4 mb-lg-0" src="https://maps.google.com/maps?q=Islamabad&t=&z=9&ie=UTF8&iwloc=&output=embed" frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                    <div class="validate"></div>
+                                </div>
+                                <div class="col form-group">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                                    <div class="validate"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                                <div class="validate"></div>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                                <div class="validate"></div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="loading">Loading</div>
+                                <div class="error-message"></div>
+                                <div class="sent-message">Your message has been sent. Thank you!</div>
+                            </div>
+                            <div class="text-center"><button type="submit">Send Message</button></div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End Contact Section -->
+
+    </main><!-- End #main -->
+   
+</body>

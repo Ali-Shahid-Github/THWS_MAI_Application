@@ -1,0 +1,68 @@
+﻿@using Microsoft.Data.SqlClient;
+@using System.Data;
+
+
+@{
+    ViewData["Title"] = "Admin Home View Cases";
+   
+
+    SqlConnection con = new SqlConnection(SQLConnection.connectionString);
+    con.Open();
+
+    SqlCommand command = new SqlCommand("SELECT C_Id, C_Title,CONVERT(VARCHAR(11), C_CreationDate,106), C_Amount_Require, C_Amount_collected, C_Desceiption, C_Type, V_IsCompleted FROM Cases", con);
+
+    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+    DataSet dataSet = new DataSet();
+    dataAdapter.Fill(dataSet);
+    con.Close();
+    DataTable table = dataSet.Tables[0];
+
+}
+
+
+<body>
+    <main id="main" data-aos="fade-up">
+
+        <!-- ======= Breadcrumbs ======= -->
+        <section class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>View Cases</h2>
+
+                </div>
+
+            </div>
+        </section><!-- End Breadcrumbs -->
+        
+    <section class="inner-page">
+        <div class="container">
+            <div class="row row-cols-3 " >
+                @for (var i = 0; i < table.Rows.Count; i++)
+                {
+
+                <div class="card mr-2 mb-3" style="border: 2px solid black; width: 24rem;">
+
+                    <div class="card-body">
+                        <h3 class="card-title">@table.Rows[i].ItemArray[1]</h3>
+                        <h4 class="card-subtitle mb-2"> Funds Require: Rs @table.Rows[i].ItemArray[3]</h4>
+                        <h4 class="card-subtitle mb-2 text-muted">Funds Collected: Rs. @table.Rows[i].ItemArray[4]</h4>
+                        <h6 class="card-text">Description: @table.Rows[i].ItemArray[5]</h6>
+                        <h6 class="card-text">Category:  @table.Rows[i].ItemArray[6]</h6>
+
+                        <a href="/Home/donation" class="btn btn-outline-success">Donate</a>
+
+                    </div>
+                </div>
+                   
+                }
+            </div>
+           
+
+            </div>
+    </section>
+
+    </main><!-- End #main -->
+
+
+</body>

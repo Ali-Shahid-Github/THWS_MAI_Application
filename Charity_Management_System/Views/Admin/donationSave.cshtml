@@ -1,0 +1,136 @@
+﻿@using Microsoft.Data.SqlClient;
+@using System.Data;
+
+@{
+    ViewData["Title"] = "Admin Home View Donation Request";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    
+
+
+    SqlConnection con = new SqlConnection(SQLConnection.connectionString);
+    con.Open();
+
+    SqlCommand command = new SqlCommand("SELECT DA_Id, DA_Name, DA_IncomeSource, DA_Category, DA_Address, DA_ContactNo, DA_Isdeserving FROM DonationAcceptor WHERE DA_Isdeserving=1", con);
+
+    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+    DataSet dataSet = new DataSet();
+    dataAdapter.Fill(dataSet);
+
+    DataTable table = dataSet.Tables[0];
+    int rowCount = table.Rows.Count;
+    con.Close();
+
+
+
+   
+}
+
+<body>
+    <main id="main">
+        <section class="inner-page">
+            <div class="container text-center">
+                <br /><br /><br /> <br /><br /><br /><br />
+                @if (rowCount > 0)
+                {
+                    <div class="">
+                        <table class="table table-hover table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Income Source</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Contact Number</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Amount</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < table.Rows.Count; i++)
+                                {
+                                    string amount;
+                                    if (table.Rows[i].ItemArray[3].ToString() == "Education")
+                                        amount = ViewData["EducationAmount"].ToString();
+                                    else if(table.Rows[i].ItemArray[3].ToString() == "Marriage")
+                                        amount = ViewData["MarriageAmount"].ToString();
+                                    else
+                                        amount = ViewData["OrphanAmount"].ToString();
+                                    <tr>
+                                        <td>@table.Rows[i].ItemArray[1]</td>
+                                        <td>@table.Rows[i].ItemArray[2]</td>
+                                        <td>@table.Rows[i].ItemArray[3]</td>
+                                        <td>@table.Rows[i].ItemArray[5]</td>
+                                        <td>@table.Rows[i].ItemArray[4]</td>
+                                        <td>
+                                            <div class="input-group mb-3">
+                                                <input type="number" name="amount" class="form-control" id="amount_@i" min="0"  max="@amount" placeholder="Amount" required>
+                                                <div class="input-group-append">
+                                                    <form action="~/Admin/save_done_give/@table.Rows[i].ItemArray[0]" method="POST" role="form" onsubmit="return ask('amount_@i')">
+                                                        <input type="hidden"  id="Amount_@i" value="1" name="_Amount" min="0" required />
+                                                        <button class="btn btn-outline-success" type="submit"  onclick="return getAmount('Amount_@i', 'amount_@i', @amount)">
+                                                            Give Donation
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                 }
+
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <h1 style="color:black;">
+                        There is no deserving Donee <span class="bx bx-check-circle"></span>
+                    </h1>
+                }
+                
+
+            </div>
+        </section>
+        <script>
+            
+            function ask(x) {
+                val = document.getElementById(x).value;
+                console.log(val);
+                giveDonation = false;
+                
+                if (val > 0) {
+                    giveDonation = confirm("Do you want to Give Donation?");
+                    return giveDonation;
+                }
+                else {
+                    alert("Enter the Positive Amount!!");
+                    return giveDonation;
+                }
+
+            }
+            function getAmount(amountiD, amount2ID, max) {
+                amu = document.getElementById(amount2ID).value;
+                console.log(amu);
+                console.log(max);
+                if (amu >0 && amu <= max) {
+                    document.getElementById(amountiD).value = document.getElementById(amount2ID).value;
+                    return true;
+                }
+                else {
+                    alert("Amount Should be greater than 0 less than or equal to the " + max );
+                    return false;
+                }
+                
+                    
+            }
+                    
+                    
+            
+        </script>
+    </main><!-- End #main -->
+
+</body>
+
+
+
+

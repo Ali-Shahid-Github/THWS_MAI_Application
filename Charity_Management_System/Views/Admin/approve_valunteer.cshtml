@@ -1,0 +1,98 @@
+﻿@using Microsoft.Data.SqlClient;
+@using System.Data;
+
+@{
+    ViewData["Title"] = "Admin Home Approve Valunteer";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    
+
+
+    SqlConnection con = new SqlConnection(SQLConnection.connectionString);
+    con.Open();
+
+    SqlCommand command = new SqlCommand("SELECT V_Id, V_Name, V_ContactNo,V_Address,V_Age,V_Qualification,V_Gender,V_Email_Id,CONVERT(VARCHAR(11), V_CreationDate,106) " +
+        "FROM Volunteer WHERE V_IsApproved=0", con);
+
+    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+    DataSet dataSet = new DataSet();
+    dataAdapter.Fill(dataSet);
+    con.Close();
+    DataTable table = dataSet.Tables[0];
+    int rowCount = table.Rows.Count;
+
+}
+
+<body>
+    <main id="main">
+        <section class="inner-page">
+            <div class="container text-center">
+                <br /><br /><br /> <br /><br /><br /><br />
+                @if (rowCount > 0)
+                {
+                    <div class="table-responsive-md">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Education</th>
+                                    <th scope="col">Contact Number</th>
+                                    <th scope="col">Email ID</th>
+                                    <th scope="col">Delete</th>
+                                    <th scope="col">Approve</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < table.Rows.Count; i++)
+                                {
+
+                                    <tr>
+
+                                        <td>@table.Rows[i].ItemArray[1]</td>
+                                        <td>@table.Rows[i].ItemArray[4]</td>
+                                        <td>@table.Rows[i].ItemArray[6]</td>
+                                        <td>@table.Rows[i].ItemArray[5]</td>
+                                        <td>@table.Rows[i].ItemArray[2]</td>
+                                        <td>@table.Rows[i].ItemArray[7]</td>
+
+                                        <td>
+                                            <form action="~/Admin/del_volunteer" method="POST" role="form" onsubmit='return ask()'>
+                                                <input type="hidden" name="id" value="@table.Rows[i].ItemArray[0]" />
+                                                <button type="submit" class="btn"><i class='bx bx-trash ' style='color:#f30606; font-size: 32px;'></i></button>
+                                            </form>
+
+                                        </td>
+                                        <td>
+                                            <form action="~/Admin/app_volunteer" method="POST" role="form" onsubmit='return ask()'>
+                                                <input type="hidden" name="id" value="@table.Rows[i].ItemArray[0]" />
+                                                <button type="submit" class="btn"><i class='bx bx-check-circle ' style='color:#10c418; font-size: 32px;'></i></button>
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <h1 style="color:black;">
+                        There is no pending request <span class="bx bx-check-circle"></span>
+                    </h1>
+                }
+
+
+
+            </div>
+        </section>
+        <script>
+            function ask() {
+                return confirm("Do you want to delete this?");
+            }
+        </script>
+    </main><!-- End #main -->
+
+</body>

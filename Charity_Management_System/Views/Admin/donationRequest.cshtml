@@ -1,0 +1,135 @@
+﻿@using Microsoft.Data.SqlClient;
+@using System.Data;
+
+@{
+    ViewData["Title"] = "Admin Home View Donation Request";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    
+    SqlConnection con = new SqlConnection(SQLConnection.connectionString);
+    con.Open();
+
+    SqlCommand command = new SqlCommand("SELECT DA_Id, DA_Name, DA_IncomeSource, DA_Category, DA_Address, DA_ContactNo, DA_Isdeserving FROM DonationAcceptor WHERE DA_Isdeserving=0", con);
+
+    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+    DataSet dataSet = new DataSet();
+    dataAdapter.Fill(dataSet);
+    
+    DataTable table = dataSet.Tables[0];
+    int rowCount = table.Rows.Count;
+
+    SqlCommand command2 = new SqlCommand("SELECT DA_Id, DA_Name, DA_IncomeSource, DA_Category, DA_Address, DA_ContactNo, DA_Isdeserving FROM DonationAcceptor WHERE DA_Isdeserving=1", con);
+    
+    SqlDataAdapter dataAdapter2 = new SqlDataAdapter(command2);
+    DataSet dataSet2 = new DataSet();
+    dataAdapter2.Fill(dataSet2);
+    con.Close();
+    DataTable table2 = dataSet2.Tables[0];
+    int rowCount2 = table2.Rows.Count;
+
+}
+
+<body>
+    <main id="main">
+        <section class="inner-page">
+            <div class="container text-center">
+                <br /><br /><br /> <br /><br /><br /><br />
+                @if (rowCount > 0)
+                {
+                    <div class="table-responsive-md">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Income Source</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Contact Number</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Approve</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < table.Rows.Count; i++)
+                                {
+
+                                    <tr>
+
+                                        <td>@table.Rows[i].ItemArray[1]</td>
+                                        <td>@table.Rows[i].ItemArray[2]</td>
+                                        <td>@table.Rows[i].ItemArray[3]</td>
+                                        <td>@table.Rows[i].ItemArray[5]</td>
+                                        <td>@table.Rows[i].ItemArray[4]</td>
+
+                                        <td>
+                                            <form action="~/Admin/app_done_req/@table.Rows[i].ItemArray[0]" method="POST" role="form" onsubmit='return ask()'>
+
+                                                <button type="submit" class="btn"><i class='bx bx-check-circle ' style='color:#10c418; font-size: 32px;'></i></button>
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <h1 style="color:black;">
+                        There is no pending request <span class="bx bx-check-circle"></span>
+                    </h1>
+                }
+                <hr style="color:black;"/>
+                <h1 style="color:black;">Approved Requests</h1>
+                <p>Here are the records of Approved Requests</p>
+                <hr style="color:black;" />
+                @if (rowCount2 > 0)
+                {
+                    <div class=""  >
+                        <table class="table table-hover table-responsive-md table-bordered" >
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Income Source</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Contact Number</th>
+                                    <th scope="col">Address</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < table2.Rows.Count; i++)
+                                {
+
+                                    <tr>
+
+                                        <td>@table2.Rows[i].ItemArray[1]</td>
+                                        <td>@table2.Rows[i].ItemArray[2]</td>
+                                        <td>@table2.Rows[i].ItemArray[3]</td>
+                                        <td>@table2.Rows[i].ItemArray[5]</td>
+                                        <td>@table2.Rows[i].ItemArray[4]</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <h1 style="color:black;">
+                        There is no approved request <span class="bx bx-check-circle"></span>
+                    </h1>
+                }
+
+
+            </div>
+        </section>
+        <script>
+            function ask() {
+                return confirm("Do you want to Approve this?");
+            }
+        </script>
+    </main><!-- End #main -->
+
+</body>

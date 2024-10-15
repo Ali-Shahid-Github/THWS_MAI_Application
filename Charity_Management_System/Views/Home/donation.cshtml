@@ -1,0 +1,78 @@
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<StripeSettings> Stripe
+
+
+<main id="main" data-aos="fade-up">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Donation</h2>
+                <ol>
+                    <li><a href="/">Home</a></li>
+                    <li>Donation</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+        <section id="contact" class="contact container">
+            <div class="container">
+
+                <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-lg-6">
+                        <form action="stripeDonation" method="post" role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="name" placeholder="Name" required />
+                              
+                            </div>
+                            <div class="form-group">
+
+                                <select id="inputState" class="form-control" name="category">                                    
+                                    <option selected>Education</option>
+                                    <option>Marriage</option>
+                                    <option>Orphan</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="Amount" placeholder="Amount"  required min="0" max="1000000" />
+                              
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="Card" required placeholder="Card No." minlength="16"  maxlength="16" pattern="\d{16}" title="Length of Card Number must be of 16"  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));"/>
+                              
+                            </div>
+                            <div class="form-group form-row">
+                                <div class=" col-6">
+                                    <input type="date" class="form-control" name="Expiry" placeholder="Expiry Date" required min="@DateTime.Today.AddMonths(3).ToString("yyyy-MM-dd")"/>
+                                </div>
+                                <div class="col-6">
+                                    Enter Expiry Date
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="CVV" placeholder="CVV" required min="100" max="999" pattern="\d*"  title="Length of CVV must be 3 Digit"  />
+                              
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" name="Email" placeholder="Email"  required/>
+                              
+                            </div>
+
+
+                            <div class="text-center"><button class="btn btn-success" type="submit">Donate</button></div>
+                          
+                        </form>
+                    </div>                
+
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+</main><!-- End #main -->

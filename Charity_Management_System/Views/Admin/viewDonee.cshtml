@@ -1,0 +1,138 @@
+﻿@using Microsoft.Data.SqlClient;
+@using System.Data;
+
+
+
+@{
+    ViewData["Title"] = "Admin Home View Donee";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    SqlConnection con = new SqlConnection(SQLConnection.connectionString);
+    con.Open();
+
+    SqlCommand command = new SqlCommand(ViewData["Query"].ToString(), con);
+
+    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+    DataSet dataSet = new DataSet();
+    dataAdapter.Fill(dataSet);
+    con.Close();
+    DataTable table = dataSet.Tables[0];
+
+}
+
+
+<body>
+    <br />
+    <main id="main" data-aos="fade-up">
+
+        <!-- ======= Breadcrumbs ======= -->
+        <section class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>View Donee Records</h2>
+
+                </div>
+
+            </div>
+        </section><!-- End Breadcrumbs -->
+
+        <section class="inner-page container-fluid">
+            <section class="container">
+                <div class="row align-items-center justify-content-center mb-3">
+
+
+                    <form action="~/Admin/viewDonee">
+                        <label for="_date">Select Date</label>
+                        <input type="date" id="_date" class="form-control d-inline" name="_date" value="@DateTime.Today.ToString("yyyy-MM-dd")" required>
+                        <button class="btn btn-outline-success form-control d-inline" type="submit">
+                            Get Results
+                        </button>
+                    </form>
+                </div>
+                <div class="table-responsive-md">
+                    <div class="container col-6">
+
+                        <input class="form-control" id="myInput" type="text" placeholder="Search!!!"> <br />
+                    </div>
+                    <div class="container-fluid">
+                        <table id="table"
+                               data-toggle="table"
+                               data-search="false"
+                               data-url='x' ,
+                               data-filter-control="true"
+                               data-show-export="true"
+                               data-click-to-select="true"
+                               data-toolbar="#toolbar"
+                               class="table-responsive table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" data-field="idAcceptor" data-filter-control="input" data-sortable="true">Donation Accepter ID</th>
+                                    <th scope="col" data-field="name" data-filter-control="input" data-sortable="true">Name</th>
+                                    <th scope="col" data-field="numberCon" data-filter-control="input" data-sortable="true">Contact Number</th>
+                                    <th scope="col" data-field="Amount" data-filter-control="input" data-sortable="true">Amount(Rs)</th>
+                                    <th scope="col" data-field="date" data-filter-control="select" data-sortable="true">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myTable">
+                                @for (var i = 0; i < table.Rows.Count; i++)
+                                {
+
+                                    <tr>
+                                        <td>@table.Rows[i].ItemArray[0]</td>
+                                        <td>@table.Rows[i].ItemArray[1]</td>
+                                        <td>@table.Rows[i].ItemArray[2]</td>
+                                        <td>@table.Rows[i].ItemArray[3]</td>
+                                        <td>@table.Rows[i].ItemArray[4]</td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+
+    </main><!-- End #main -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/editable/bootstrap-table-editable.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/filter-control/bootstrap-table-filter-control.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/export/bootstrap-table-export.js"></script>
+    <script src="https://rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+
+            //exporte les données sélectionnées
+            var $table = $('#table');
+            $(function () {
+                $('#toolbar').find('select').change(function () {
+                    $table.bootstrapTable('refreshOptions', {
+                        exportDataType: $(this).val()
+                    });
+                });
+            })
+
+            var trBoldBlue = $("table");
+
+            $(trBoldBlue).on("click", "tr", function () {
+                $(this).toggleClass("bold-blue");
+            });
+        });
+
+
+
+    </script>
+</body>

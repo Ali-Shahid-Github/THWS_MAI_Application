@@ -1,0 +1,252 @@
+﻿@using Microsoft.Data.SqlClient;
+@using System.Data;
+
+
+@{
+    ViewData["Title"] = "Admin Home Reports";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+
+<body>
+    <main id="main" data-aos="fade-up">
+        <br />
+        <!-- ======= Breadcrumbs ======= -->
+        <section class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Details</h2>
+
+                </div>
+
+            </div>
+        </section><!-- End Breadcrumbs -->
+
+        <section class="inner-page">
+            
+                <section id="counts" class="counts">
+                    <div class="container" data-aos="fade-up">
+                        @{
+
+                            string getResult(string query)
+                            {
+                                SqlConnection con = new SqlConnection(SQLConnection.connectionString);
+                                con.Open();
+
+                                SqlCommand command = new SqlCommand(query, con);
+
+                                SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+                                DataSet dataSet = new DataSet();
+                                dataAdapter.Fill(dataSet);
+                                con.Close();
+                                return dataSet.Tables[0].Rows[0].ItemArray[0].ToString();
+                            }
+
+                            string t_C = getResult("SELECT COUNT(C_Id) FROM Cases");
+                            string t_S = getResult("SELECT Count(C_Id) FROM dbo.Cases WHERE V_IsCompleted = 1 ");
+                            string C_M = getResult("SELECT COUNT(C_Id) FROM dbo.Cases WHERE C_CreationDate >= DATEADD(day, -30, GETDATE())");
+                            string C_S_M = getResult("SELECT COUNT(C_Id) FROM dbo.Cases WHERE V_IsCompleted =1  AND C_ModifiedDate >= DATEADD(day, -30, GETDATE()) ");
+
+
+                            string v_T = getResult("SELECT COUNT(V_Id) FROM dbo.Volunteer WHERE V_IsApproved = 1 ");
+                            string v_R_M = getResult("SELECT COUNT(V_Id) FROM dbo.Volunteer WHERE V_CreationDate >= DATEADD(day, -30, GETDATE())  ");
+                            string v_A_M = getResult("SELECT COUNT(V_Id)  FROM dbo.Volunteer WHERE V_CreationDate >= DATEADD(day, -30, GETDATE())  AND V_IsApproved = 1 ");
+                            string v_r_M = getResult("SELECT COUNT(V_Id)  FROM dbo.Volunteer WHERE V_CreationDate >= DATEADD(day, -30, GETDATE())  AND V_IsApproved = 0");
+
+                            string d_T = getResult("SELECT SUM(D_Amount) FROM dbo.Donation");
+                            string d_T_M = getResult("SELECT SUM(D_Amount) FROM dbo.Donation WHERE D_CreationDate >= DATEADD(day, -30, GETDATE()) ");
+                            string d_R_M = getResult("SELECT Sum(C_Amount_Require) FROM dbo.Cases WHERE V_IsCompleted=0 AND C_CreationDate >= DATEADD(day, -30, GETDATE())");
+                            string d_N = getResult("SELECT  Count(DISTINCT D_Card) FROM Donation  WHERE D_CreationDate >= DATEADD(day, -30, GETDATE())");
+
+                            string dn_T = getResult("SELECT Count(DA_Id) FROM dbo.DonationAcceptor WHERE DA_Isdeserving = 1");
+                            string dn_G = getResult("SELECT Sum( DA_Amount) FROM dbo.DonationGiven ");
+                            string dn_T_M = getResult("SELECT Count(DA_Id) FROM dbo.DonationAcceptor WHERE  DA_CreationDate >= DATEADD(day, -30, GETDATE())");
+                            string dn_A_M = getResult("SELECT Count(DA_Id) FROM dbo.DonationAcceptor WHERE DA_Isdeserving = 1  AND DA_CreationDate >= DATEADD(day, -30, GETDATE())");
+
+                            string dn_DG_M = getResult("SELECT Sum( DA_Amount) FROM dbo.DonationGiven WHERE  DG_Date >= DATEADD(day, -30, GETDATE())");
+
+                        }
+
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="count-box">
+                                    <i class="icofont-archive"></i>
+                                    <span data-toggle="counter-up">@t_C</span>
+                                    <p>Total Cases</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                                <div class="count-box">
+                                    <i class="icofont-archive"></i>
+                                    <span data-toggle="counter-up">@t_S</span>
+                                    <p>Total Solved Cases</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                                <div class="count-box">
+                                    <i class="icofont-archive"></i>
+                                    <span data-toggle="counter-up">@C_M</span>
+                                    <p>New Cases this Month</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                                <div class="count-box">
+                                    <i class="icofont-archive"></i>
+                                    <span data-toggle="counter-up">@C_S_M</span>
+                                    <p>Solved this Month</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="count-box">
+                                    <i class="icofont-user-alt-2"></i>
+                                    <span data-toggle="counter-up">@v_T</span>
+                                    <p>Total Volunteers<br /><br /></p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                                <div class="count-box">
+                                    <i class="icofont-user-alt-2"></i>
+                                    <span data-toggle="counter-up">@v_R_M</span>
+                                    <p>Volunteers Requests of 30 Days</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                                <div class="count-box">
+                                    <i class="icofont-user-alt-2"></i>
+                                    <span data-toggle="counter-up">@v_A_M</span>
+                                    <p>Volunteers accepted by past 30 Days</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                                <div class="count-box">
+                                    <i class="icofont-user-alt-2"></i>
+                                    <span data-toggle="counter-up">@v_r_M</span>
+                                    <p>Volunteers refused by past 30 Days<br /></p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="count-box">
+                                    <i class="icofont-money-bag"></i>
+                                    <span data-toggle="counter-up">@d_T</span>
+                                    <p>Total Donation</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                                <div class="count-box">
+                                    <i class="icofont-money-bag"></i>
+                                    <span data-toggle="counter-up">@d_T_M</span>
+                                    <p>Donations of 30 Days</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                                <div class="count-box">
+                                    <i class="icofont-money-bag"></i>
+                                    <span data-toggle="counter-up">@d_R_M</span>
+                                    <p>Donation Required by 30 Days</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                                <div class="count-box">
+                                    <i class="icofont-money-bag"></i>
+                                    <span data-toggle="counter-up">@d_N</span>
+                                    <p>New Donors by 30 Days</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="count-box">
+                                    <i class="icofont-gift-box"></i>
+                                    <span data-toggle="counter-up">@dn_T</span>
+                                    
+                                    <p>Total Donees <br /> <br /></p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                                <div class="count-box">
+                                    <i class="icofont-gift-box"></i>
+                                    <span data-toggle="counter-up">@dn_G</span>
+                                    <p>Donations given to Donnee <br /> <br /></p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                                <div class="count-box">
+                                    <i class="icofont-gift-box"></i>
+                                    <span data-toggle="counter-up">@dn_T_M</span>
+                                    <p>Past 30 Days Total Requests for Donee</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                                <div class="count-box">
+                                    <i class="icofont-gift-box"></i>
+                                    <span data-toggle="counter-up">@dn_A_M</span>
+                                    <p>Donnee Accepted by the past 30 Days</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br />
+
+                        <div class="row  justify-content-center">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="count-box">
+                                    <i class="icofont-gift-box"></i>
+                                    <span data-toggle="counter-up">@dn_DG_M</span>
+                                    <p>Donation Given to Donne this Month</p>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+
+
+
+
+
+
+
+                    </div>
+                
+
+        </section>
+
+        </section>
+
+    </main><!-- End #main -->
+   
+
+</body>
