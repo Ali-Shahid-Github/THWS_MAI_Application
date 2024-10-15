@@ -1,1 +1,1 @@
-# THWS_MAI_Application
+# THWS MAI Application
